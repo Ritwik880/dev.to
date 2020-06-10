@@ -39,15 +39,6 @@ class Internal::ApplicationController < ApplicationController
   end
 
   def authorize_admin
-    count = 0
-    max_attempts = 10
-    until pundit_user.present? || count > max_attempts
-      count += 1
-      sleep(1)
-      puts "no current_user/pundit_user"
-    end
-
-    puts "authorize_admin #{authorization_resource}"
     authorize(authorization_resource, :access?, policy_class: InternalPolicy)
   end
 end
